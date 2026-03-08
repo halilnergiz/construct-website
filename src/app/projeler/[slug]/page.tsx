@@ -40,6 +40,10 @@ export default async function ProjeDetay({ params }: Props) {
     .single<Project>();
 
   if (!project) notFound();
+  const galleryImages =
+    project.images?.filter((img, index) =>
+      project.cover_image ? img !== project.cover_image || index !== 0 : true
+    ) ?? [];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -86,11 +90,11 @@ export default async function ProjeDetay({ params }: Props) {
         </div>
       )}
 
-      {project.images && project.images.length > 0 && (
+      {galleryImages.length > 0 && (
         <div className="mt-12">
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">Galeri</h2>
           <div className="grid grid-cols-2 gap-4">
-            {project.images.map((img, i) => (
+            {galleryImages.map((img, i) => (
               <div key={i} className="relative aspect-video overflow-hidden rounded-lg">
                 <Image
                   src={img}

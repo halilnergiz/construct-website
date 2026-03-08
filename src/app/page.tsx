@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { brandConfig } from "@/config/brand";
 import { createServerSupabase } from "@/lib/supabase";
 import type { Project } from "@/types/project";
 
@@ -20,28 +19,40 @@ export default async function Home() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-gray-900 text-white">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900" />
-        <div className="relative max-w-7xl mx-auto px-4 py-24 sm:py-32 lg:py-40">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              {brandConfig.companyName}
+      <section className="relative h-svh overflow-hidden">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source src="/mixkit-time-lapse-of-a-construction-site-32388-hd-ready.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-white/5" />
+        <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 pb-12 pt-(--site-header-height) sm:px-6 sm:pb-16 lg:px-8 lg:pb-24">
+          <div className="w-full max-w-2xl lg:max-w-[40%]">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+              Turning Blueprints into Landmarks
             </h1>
-            <p className="mt-6 text-lg text-gray-300 leading-relaxed">
-              {brandConfig.tagline}
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-gray-700 sm:text-lg">
+              Projeleri yalnızca inşa etmiyoruz; mühendislik disiplini, estetik yaklaşım ve
+              zamanında teslim prensibiyle yaşam alanlarını kalıcı değerlere dönüştürüyoruz.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/projeler"
-                className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-gray-900 shadow-sm transition-colors hover:bg-gray-100"
+                className="inline-flex items-center justify-center bg-amber-400 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-gray-900 transition-colors hover:bg-amber-300"
               >
-                Projelerimizi İnceleyin
+                Projeleri Keşfet
               </Link>
               <Link
                 href="/iletisim"
-                className="rounded-lg border border-gray-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+                className="inline-flex items-center justify-center border border-gray-700 bg-white/75 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-gray-900 transition-colors hover:bg-white"
               >
-                İletişime Geçin
+                Hemen Danış
               </Link>
             </div>
           </div>
@@ -73,7 +84,7 @@ export default async function Home() {
                 href={`/projeler/${project.slug}`}
                 className="group block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+                <div className="relative aspect-16/10 overflow-hidden bg-gray-100">
                   {project.cover_image ? (
                     <Image
                       src={project.cover_image}
