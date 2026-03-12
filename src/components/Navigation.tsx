@@ -19,11 +19,11 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const isHomePage = pathname === "/";
-  const isOverlayMode = isHomePage && !hasScrolled;
+  const isOverlayMode = !hasScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
-      setHasScrolled(window.scrollY > 50);
+      setHasScrolled(window.scrollY > 0);
     };
 
     handleScroll();
@@ -35,18 +35,10 @@ export default function Navigation() {
   }, [pathname]);
 
   return (
-    <header
-      className={
-        isHomePage
-          ? isOverlayMode
-            ? "absolute inset-x-0 top-0 z-50"
-            : "fixed inset-x-0 top-0 z-50"
-          : "sticky top-0 z-50"
-      }
-    >
+    <>
       <div className="bg-[#2f2f32] text-white">
         <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-5 text-xs sm:text-sm">
+          <div className="flex items-center gap-5 text-sm sm:text-base">
             <span className="flex items-center gap-2 text-gray-200">
               <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5.25C3 4.007 4.007 3 5.25 3h2.22c1.04 0 1.93.713 2.156 1.728l.637 2.867a2.25 2.25 0 01-.95 2.37l-1.72 1.147a11.042 11.042 0 005.276 5.277l1.147-1.72a2.25 2.25 0 012.37-.95l2.867.637A2.25 2.25 0 0121 16.53v2.22A2.25 2.25 0 0118.75 21h-.75C9.716 21 3 14.284 3 6v-.75z" />
@@ -87,8 +79,14 @@ export default function Navigation() {
       </div>
 
       <nav
-        className={`transition-colors duration-500 ease-out ${
-          isOverlayMode ? "bg-transparent" : "bg-white/95 backdrop-blur"
+        className={`${
+          isHomePage && !hasScrolled
+            ? "absolute inset-x-0 top-10 z-50"
+            : "fixed inset-x-0 top-0 z-50"
+        } transition-colors duration-500 ease-out ${
+          isOverlayMode
+            ? "bg-linear-to-b from-black/45 via-black/20 to-transparent"
+            : "bg-white/95 backdrop-blur"
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -106,7 +104,7 @@ export default function Navigation() {
                     <Link
                       key={link.href}
                       href={link.href}
-                      className={`rounded-lg px-3.5 py-2 text-sm font-medium transition-colors ${
+                      className={`rounded-lg px-3.5 py-2 text-base font-medium transition-colors ${
                         isActive
                           ? "bg-gray-900 text-white"
                           : isOverlayMode
@@ -121,7 +119,7 @@ export default function Navigation() {
               </div>
               <Link
                 href="/iletisim"
-                className="inline-flex items-center justify-center bg-amber-400 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-gray-900 transition-colors hover:bg-amber-300"
+                className="inline-flex items-center justify-center bg-amber-400 px-6 py-3 text-base font-semibold uppercase tracking-wide text-gray-900 transition-colors hover:bg-amber-300"
               >
                 Teklif Al
               </Link>
@@ -164,7 +162,7 @@ export default function Navigation() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className={`block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                    className={`block rounded-lg px-3 py-2.5 text-base font-medium transition-colors ${
                       isActive
                         ? "bg-gray-900 text-white"
                         : isOverlayMode
@@ -179,7 +177,7 @@ export default function Navigation() {
               <Link
                 href="/iletisim"
                 onClick={() => setMenuOpen(false)}
-                className="mt-2 inline-flex w-full items-center justify-center bg-amber-400 px-4 py-2.5 text-sm font-semibold uppercase tracking-wide text-gray-900"
+                className="mt-2 inline-flex w-full items-center justify-center bg-amber-400 px-4 py-2.5 text-base font-semibold uppercase tracking-wide text-gray-900"
               >
                 Teklif Al
               </Link>
@@ -187,6 +185,6 @@ export default function Navigation() {
           )}
         </div>
       </nav>
-    </header>
+    </>
   );
 }
