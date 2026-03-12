@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { createServerSupabase } from "@/lib/supabase";
-import type { Project } from "@/types/project";
+import type { Project, ProjectStatus } from "@/types/project";
 
 export const revalidate = 60;
 
@@ -11,7 +11,7 @@ export default async function Projeler() {
   const { data: projects } = await supabase
     .from("projects")
     .select("*")
-    .eq("status", "published")
+    .eq("publication_state", "published")
     .order("created_at", { ascending: false })
     .returns<Project[]>();
 
@@ -20,7 +20,7 @@ export default async function Projeler() {
       <div className="mb-10">
         <h1 className="text-4xl font-bold text-gray-800 mb-3">Projeler</h1>
         <p className="text-gray-500 text-lg">
-          Tamamladığımız ve devam eden projelerimiz
+          Planlanan, devam eden ve tamamlanan projelerimiz
         </p>
       </div>
 
@@ -36,7 +36,12 @@ export default async function Projeler() {
               href={`/projeler/${project.slug}`}
               className="group block overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md hover:-translate-y-1"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+              <div className="relative aspect-16/10 overflow-hidden bg-gray-100">
+                <span
+                  className={`absolute left-3 top-3 z-10 rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm ring-1 ring-white/25 ${getProjectStatusBadgeClass(project.project_status)}`}
+                >
+                  {formatProjectStatus(project.project_status)}
+                </span>
                 {project.cover_image ? (
                   <Image
                     src={project.cover_image}
@@ -74,4 +79,18 @@ export default async function Projeler() {
       )}
     </div>
   );
+}
+
+function formatProjectStatus(value: ProjectStatus | null): string {
+  if (value === "planned") return "Planlanan";
+  if (value === "ongoing") return "Devam Eden";
+  if (value === "completed") return "Tamamlanmış";
+  return "Belirtilmemiş";
+}
+
+function getProjectStatusBadgeClass(value: ProjectStatus | null): string {
+  if (value === "planned") return "bg-sky-500/65";
+  if (value === "ongoing") return "bg-amber-500/65";
+  if (value === "completed") return "bg-emerald-500/65";
+  return "bg-slate-500/65";
 }

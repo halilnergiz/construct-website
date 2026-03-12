@@ -11,7 +11,7 @@ export default async function Home() {
   const { data: featuredProjects } = await supabase
     .from("projects")
     .select("*")
-    .eq("status", "published")
+    .eq("publication_state", "published")
     .eq("featured", true)
     .order("created_at", { ascending: false })
     .limit(3)
@@ -64,7 +64,7 @@ export default async function Home() {
           <div className="flex items-end justify-between mb-10">
             <div>
               <h2 className="text-3xl font-bold text-gray-900">Öne Çıkan Projeler</h2>
-              <p className="mt-2 text-gray-500">Son tamamladığımız projelerden bazıları</p>
+              <p className="mt-2 text-gray-500">Planlama, yapım ve tamamlanma süreçlerindeki öne çıkan projelerimiz</p>
             </div>
             <Link
               href="/projeler"
