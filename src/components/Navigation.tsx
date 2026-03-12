@@ -19,7 +19,7 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const isHomePage = pathname === "/";
-  const isOverlayMode = !hasScrolled;
+  const isOverlayMode = isHomePage && !hasScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,44 +36,50 @@ export default function Navigation() {
 
   return (
     <>
-      <div className="bg-[#2f2f32] text-white">
-        <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-5 text-sm sm:text-base">
-            <span className="flex items-center gap-2 text-gray-200">
-              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5.25C3 4.007 4.007 3 5.25 3h2.22c1.04 0 1.93.713 2.156 1.728l.637 2.867a2.25 2.25 0 01-.95 2.37l-1.72 1.147a11.042 11.042 0 005.276 5.277l1.147-1.72a2.25 2.25 0 012.37-.95l2.867.637A2.25 2.25 0 0121 16.53v2.22A2.25 2.25 0 0118.75 21h-.75C9.716 21 3 14.284 3 6v-.75z" />
-              </svg>
-              <span className="hidden sm:inline">Call Us</span>
-              <span>+123 456 7890</span>
-            </span>
-            <span className="hidden h-4 w-px bg-gray-500 sm:block" />
-            <span className="hidden items-center gap-2 text-gray-200 sm:flex">
-              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21c4.97-4.667 7.5-8.498 7.5-11.5a7.5 7.5 0 10-15 0c0 3.002 2.53 6.833 7.5 11.5z" />
-                <circle cx="12" cy="9.5" r="2.5" />
-              </svg>
-              <span>123 Anywhere St, Anycity</span>
-            </span>
-          </div>
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          hasScrolled ? "max-h-0 translate-y-2 opacity-0" : "max-h-10 translate-y-0 opacity-100"
+        }`}
+      >
+        <div className="bg-[#2f2f32] text-white">
+          <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-5 text-sm sm:text-base">
+              <span className="flex items-center gap-2 text-gray-200">
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5.25C3 4.007 4.007 3 5.25 3h2.22c1.04 0 1.93.713 2.156 1.728l.637 2.867a2.25 2.25 0 01-.95 2.37l-1.72 1.147a11.042 11.042 0 005.276 5.277l1.147-1.72a2.25 2.25 0 012.37-.95l2.867.637A2.25 2.25 0 0121 16.53v2.22A2.25 2.25 0 0118.75 21h-.75C9.716 21 3 14.284 3 6v-.75z" />
+                </svg>
+                <span className="hidden sm:inline">Call Us</span>
+                <span>+123 456 7890</span>
+              </span>
+              <span className="hidden h-4 w-px bg-gray-500 sm:block" />
+              <span className="hidden items-center gap-2 text-gray-200 sm:flex">
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 21c4.97-4.667 7.5-8.498 7.5-11.5a7.5 7.5 0 10-15 0c0 3.002 2.53 6.833 7.5 11.5z" />
+                  <circle cx="12" cy="9.5" r="2.5" />
+                </svg>
+                <span>123 Anywhere St, Anycity</span>
+              </span>
+            </div>
 
-          <div className="flex items-center gap-2">
-            <a href="#" className="rounded-full border border-gray-500 p-1.5 text-gray-200 transition-colors hover:bg-white hover:text-gray-900" aria-label="Facebook">
-              <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M13.5 9H16V6h-2.5C11.57 6 10 7.57 10 9.5V12H8v3h2v6h3v-6h2.5l.5-3H13v-2.5c0-.28.22-.5.5-.5z" />
-              </svg>
-            </a>
-            <a href="#" className="rounded-full border border-gray-500 p-1.5 text-gray-200 transition-colors hover:bg-white hover:text-gray-900" aria-label="Twitter">
-              <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.9 3H22l-6.77 7.75L23.2 21h-6.26l-4.9-6.4L6.4 21H3.3l7.23-8.27L1 3h6.42l4.43 5.84L18.9 3zm-1.1 16h1.74L6.5 4.9H4.66L17.8 19z" />
-              </svg>
-            </a>
-            <a href="#" className="rounded-full border border-gray-500 p-1.5 text-gray-200 transition-colors hover:bg-white hover:text-gray-900" aria-label="Instagram">
-              <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <rect x="4" y="4" width="16" height="16" rx="4" strokeWidth={2} />
-                <circle cx="12" cy="12" r="3.5" strokeWidth={2} />
-                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" strokeWidth={0} />
-              </svg>
-            </a>
+            <div className="flex items-center gap-2">
+              <a href="#" className="rounded-full border border-gray-500 p-1.5 text-gray-200 transition-colors hover:bg-white hover:text-gray-900" aria-label="Facebook">
+                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M13.5 9H16V6h-2.5C11.57 6 10 7.57 10 9.5V12H8v3h2v6h3v-6h2.5l.5-3H13v-2.5c0-.28.22-.5.5-.5z" />
+                </svg>
+              </a>
+              <a href="#" className="rounded-full border border-gray-500 p-1.5 text-gray-200 transition-colors hover:bg-white hover:text-gray-900" aria-label="Twitter">
+                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M18.9 3H22l-6.77 7.75L23.2 21h-6.26l-4.9-6.4L6.4 21H3.3l7.23-8.27L1 3h6.42l4.43 5.84L18.9 3zm-1.1 16h1.74L6.5 4.9H4.66L17.8 19z" />
+                </svg>
+              </a>
+              <a href="#" className="rounded-full border border-gray-500 p-1.5 text-gray-200 transition-colors hover:bg-white hover:text-gray-900" aria-label="Instagram">
+                <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <rect x="4" y="4" width="16" height="16" rx="4" strokeWidth={2} />
+                  <circle cx="12" cy="12" r="3.5" strokeWidth={2} />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" strokeWidth={0} />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -82,11 +88,15 @@ export default function Navigation() {
         className={`${
           isHomePage && !hasScrolled
             ? "absolute inset-x-0 top-10 z-50"
+            : !isHomePage && !hasScrolled
+              ? "fixed inset-x-0 top-10 z-50"
             : "fixed inset-x-0 top-0 z-50"
-        } transition-colors duration-500 ease-out ${
+        } transition-all duration-300 ease-in-out ${
           isOverlayMode
             ? "bg-linear-to-b from-black/45 via-black/20 to-transparent"
-            : "bg-white/95 backdrop-blur"
+            : isHomePage
+              ? "bg-white/95 backdrop-blur"
+              : "bg-white/85 backdrop-blur"
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -185,6 +195,7 @@ export default function Navigation() {
           )}
         </div>
       </nav>
+      {!isHomePage && <div className="h-20" aria-hidden="true" />}
     </>
   );
 }
